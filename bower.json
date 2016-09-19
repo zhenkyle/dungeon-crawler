@@ -6,8 +6,8 @@
     "classnames": "^2.2.5",
     "react-redux": "https://cdnjs.cloudflare.com/ajax/libs/react-redux/4.4.5/react-redux.js",
     "redux": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.5.2/redux.js",
-    "todomvc-app-css": "^2.0.4",
-    "es6-shim": "^0.35.0"
+    "es6-shim": "^0.35.0",
+    "normalize-css": "^4.2.0"
   },
   "devDependencies": {},
   "overrides": {

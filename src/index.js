@@ -1,3 +1,4 @@
+/*
 const Provider = ReactRedux.Provider;
 const store = Redux.createStore(rootReducer);
 
@@ -7,3 +8,4 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
+*/
