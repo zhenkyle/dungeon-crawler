@@ -1,29 +1,9 @@
-class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleSave = this.handleSave.bind(this);
-  }
-
-  handleSave(text) {
-    if (text.length !== 0) {
-      this.props.addTodo(text);
-    }
-  }
-
-  render() {
-    return (
-      <header className="header">
-        <h1>todos</h1>
-        <TodoTextInput
-          newTodo
-          onSave={this.handleSave}
-          placeholder="What needs to be done?"
-          />
-      </header>
-    );
-  }
+function Header() {
+  return (
+    <header className="HolyGrail-header">
+      <h1>Dungeon Crawler</h1>
+      <h4>Kill the boss in dungeon 4</h4>
+      <p><strong>Health:</strong> 100 <strong>Weapon:</strong> stick <strong>Attack:</strong> 7 <strong>Level:</strong> 0 <strong>Next Level:</strong> 60XP <strong>Dungeon:</strong> 0 <button>Toggle Darkness</button></p>
+    </header>
+  );
 }
-
-Header.propTypes = {
-  addTodo: React.PropTypes.func.isRequired
-};
