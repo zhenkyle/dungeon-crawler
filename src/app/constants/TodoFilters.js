@@ -1,3 +1,10 @@
-const SHOW_ALL = 'show_all';
-const SHOW_COMPLETED = 'show_completed';
-const SHOW_ACTIVE = 'show_active';
+const TOP = 0;
+const RIGHT = 1;
+const BOTTOM = 2;
+const LEFT = 3;
+
+const SOIL = 0;
+const SPACE = 1;
+
+const MAP_WIDTH = 100;
+const MAP_HEIGHT = 80;

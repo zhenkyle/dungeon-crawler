@@ -11,18 +11,46 @@ describe('rooms reducer', () => {
     expect(a).toBe(1);
   });
 
-  it('_generateARoom should return a room', () => {
-    const room = _generateARoom();
-    expect(room.top).toBeDefined();
-    expect(room.left).toBeDefined();
-    expect(room.bottom).toBeDefined();
-    expect(room.right).toBeDefined();
+  it('_checkFit should work', () => {
+    let map = [[0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0]];
+    expect(_checkFit(map, 5, 4, 0, 0, 4, 3)).toBe(true);
+    expect(_checkFit(map, 5, 4, 0, 0, 5, 4)).toBe(false);
+    map = [[1, 1, 0, 0, 0],
+           [1, 1, 0, 0, 0],
+           [0, 0, 0, 0, 0],
+           [0, 0, 0, 0, 0]];
+    expect(_checkFit(map, 5, 4, 0, 0, 4, 3)).toBe(false);
+  });
+
+  it('_fillRect should work', () => {
+    const map = [[0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0]];
+    const after = [[1, 1, 1, 1, 1],
+             [1, 1, 1, 1, 1],
+             [1, 1, 1, 1, 1],
+             [1, 1, 1, 1, 1]];
+    _fillRect(map, 0, 0, 5, 4);
+    expect(map).toEqual(after);
+  });
+
+  it('_getCurrentMapSize should work', () => {
+    const map = [[0, 1, 0, 0, 0],
+             [0, 1, 0, 0, 0],
+             [0, 0, 0, 1, 0],
+             [0, 0, 0, 1, 0]];
+    const rtn = _getCurrentMapSize(map, 5, 4);
+    expect(rtn.width).toEqual(3);
+    expect(rtn.height).toEqual(4);
   });
 
   it('should handle initial state', () => {
-    expect(
-      rooms(undefined, {})
-    ).toEqual([
-    ]);
+    const r = rooms(undefined, {});
+    expect(r.length).toBe(MAP_HEIGHT);
+    expect(r[0].length).toBe(MAP_WIDTH);
   });
 });
