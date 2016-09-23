@@ -1,4 +1,4 @@
-describe('rooms reducer', () => {
+describe('map reducer', () => {
   it('_getRandomInt should return a integer between min (inclueded)and max (excluded)', () => {
     let a = _getRandomInt(1, 10);
     expect(a >= 1).toBe(true);
@@ -58,8 +58,8 @@ describe('rooms reducer', () => {
   });
 
   it('should handle initial state', () => {
-    // const r = rooms(undefined, {});
-    //  expect(r.length).toBe(MAP_HEIGHT);
-    // expect(r[0].length).toBe(MAP_WIDTH);
+    const m = map(undefined, {});
+    expect(m.length).toBe(MAP_HEIGHT);
+    expect(m[0].length).toBe(MAP_WIDTH);
   });
 });

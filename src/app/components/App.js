@@ -4,8 +4,7 @@ function App() {
       <Header/>
       <div className="HolyGrail-body">
         <main className="HolyGrail-content">
-          <Board/>
-          <Mask/>
+          <Background/>
         </main>
       </div>
       <Footer/>

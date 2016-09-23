@@ -174,7 +174,7 @@ function _generateMap(width, height) {
 
     // 8. go back to 3. until dungeon generate complete
     const {width: currentWidth, height: currentHeight} = _getCurrentMapSize(map, width, height);
-    if (currentWidth >= width * 0.75 && currentHeight >= height * 0.75) {
+    if (currentWidth >= width * 0.85 && currentHeight >= height * 0.85) {
       complete = true;
     }
   }
@@ -186,9 +186,9 @@ function _generateMap(width, height) {
   return map;
 }
 
-const initialRoomsState = _generateMap(MAP_WIDTH, MAP_HEIGHT);
+const initialMapState = _generateMap(MAP_WIDTH, MAP_HEIGHT);
 
-function rooms(state = initialRoomsState, action) {
+function map(state = initialMapState, action) {
   return state;
 }
 
