@@ -1,5 +1,5 @@
 const Provider = ReactRedux.Provider;
-const store = Redux.createStore(rootReducer);
+const store = Redux.createStore(rootReducer, window.devToolsExtension && window.devToolsExtension());
 
 ReactDOM.render(
   <Provider store={store}>

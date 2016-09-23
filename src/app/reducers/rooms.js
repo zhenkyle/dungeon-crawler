@@ -54,25 +54,57 @@ function _getCurrentMapSize(map, mapWidth, mapHeight) {
   let minY = mapHeight - 1;
   let maxX = 0;
   let maxY = 0;
+
   for (let i = 0; i < mapWidth; i++) {
     for (let j = 0; j < mapHeight; j++) {
-      if (map[j][i] === SPACE) {
-        if (i < minX) {
-          minX = i;
-        }
-        if (i > maxX) {
-          maxX = i;
-        }
-        if (j < minY) {
-          minY = j;
-        }
-        if (j > maxY) {
-          maxY = j;
-        }
+      if (map[j][i] !== SOIL) {
+        minX = i;
+        break;
       }
     }
+    if (minX === i) {
+      break;
+    }
   }
-  return {width: maxX - minX + 1, height: maxY - minY + 1};
+
+  for (let i = mapWidth - 1; i >= 0; i--) {
+    for (let j = mapHeight - 1; j >= 0; j--) {
+      if (map[j][i] !== SOIL) {
+        maxX = i;
+        break;
+      }
+    }
+    if (maxX === i) {
+      break;
+    }
+  }
+
+  for (let j = 0; j < mapHeight; j++) {
+    for (let i = 0; i < mapWidth; i++) {
+      if (map[j][i] !== SOIL) {
+        minY = j;
+        break;
+      }
+    }
+    if (minY === j) {
+      break;
+    }
+  }
+
+  for (let j = mapHeight - 1; j >= 0; j--) {
+    for (let i = mapWidth - 1; i >= 0; i--) {
+      if (map[j][i] !== SOIL) {
+        maxY = j;
+        break;
+      }
+    }
+    if (maxY === j) {
+      break;
+    }
+  }
+
+  return {width: maxX - minX + 1 < 0 ? 0 : maxX - minX + 1,
+         height: maxY - minY + 1 < 0 ? 0 : maxY - minY + 1};
 }
 
 function _generateMap(width, height) {
@@ -137,26 +169,26 @@ function _generateMap(width, height) {
     }
 
     // 7. draw the room on map
+    _fillRect(map, x, y, 1, 1);
     _fillRect(map, x1, y1, x2 - x1 + 1, y2 - y1 + 1);
 
     // 8. go back to 3. until dungeon generate complete
-    complete = true;
-    /*
-    const {currentWidth, currentHeight} = _getCurrentMapSize(map, width, height);
-    if (currentHeight >= width * 0.8 && currentHeight >= height * 0.8) {
+    const {width: currentWidth, height: currentHeight} = _getCurrentMapSize(map, width, height);
+    if (currentWidth >= width * 0.75 && currentHeight >= height * 0.75) {
       complete = true;
     }
-    */
   }
 
   // 9. add stairs
 
   // 10. add monsters and items
 
-  console.log(map);
   return map;
 }
 
-function rooms(state = _generateMap(MAP_WIDTH, MAP_HEIGHT), action) {
+const initialRoomsState = _generateMap(MAP_WIDTH, MAP_HEIGHT);
+
+function rooms(state = initialRoomsState, action) {
   return state;
 }
+
