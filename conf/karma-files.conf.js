@@ -14,7 +14,7 @@ module.exports = function listFiles() {
     'node_modules/es6-shim/es6-shim.js',
     `!${conf.path.tmp('**/*.spec.js')}`,
     conf.path.tmp('app/constants/*.js'),
-    conf.path.tmp('app/reducers/map.js'),
+    conf.path.tmp('app/reducers/game.js'),
     conf.path.tmp('app/reducers/index.js'),
     conf.path.tmp('app/actions/index.js'),
     conf.path.tmp('app/components/*.js'),

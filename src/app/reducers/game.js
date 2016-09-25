@@ -178,17 +178,48 @@ function _generateMap(width, height) {
       complete = true;
     }
   }
-
-  // 9. add stairs
-
-  // 10. add monsters and items
-
   return map;
 }
 
+  // 9. add stairs
+function _putOneThing(thing, onThings, mapWidth, mapHeight, onMap) {
+  let found = false;
+  let x;
+  let y;
+  while (!found) {
+    x = _getRandomInt(1, mapWidth - 1);
+    y = _getRandomInt(1, mapHeight - 1);
+    if (onMap[y][x] === SPACE) {
+      found = true;
+    }
+  }
+  onThings[y][x] = thing;
+}
+
+function _generateThings(width, height, onMap) {
+  const things = _getArray(width, height, () => BLANK);
+  _putOneThing(STAIRS, things, width, height, onMap);
+  _putOneThing(WEAPON, things, width, height, onMap);
+  _putOneThing(MEDICINE, things, width, height, onMap);
+  _putOneThing(MEDICINE, things, width, height, onMap);
+  _putOneThing(MEDICINE, things, width, height, onMap);
+  _putOneThing(ENEMY, things, width, height, onMap);
+  _putOneThing(ENEMY, things, width, height, onMap);
+  _putOneThing(ENEMY, things, width, height, onMap);
+  _putOneThing(ENEMY, things, width, height, onMap);
+  _putOneThing(ENEMY, things, width, height, onMap);
+  _putOneThing(PLAYER, things, width, height, onMap);
+  return things;
+}
+
+  // 10. add monsters and items
 const initialMapState = _generateMap(MAP_WIDTH, MAP_HEIGHT);
 
-function map(state = initialMapState, action) {
+const initialGameState = {
+  map: initialMapState,
+  things: _generateThings(MAP_WIDTH, MAP_HEIGHT, initialMapState)
+};
+function game(state = initialGameState, action) {
   return state;
 }
 

@@ -5,6 +5,7 @@ function App() {
       <div className="HolyGrail-body">
         <main className="HolyGrail-content">
           <Background/>
+          <Things/>
         </main>
       </div>
       <Footer/>

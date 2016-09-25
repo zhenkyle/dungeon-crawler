@@ -11,6 +11,8 @@ const MEDICINE = 2;
 const PLAYER = 3;
 const ENEMY = 4;
 const WEAPON = 5;
+const STAIRS = 6;
+const BLANK = 7;
 
 // map size
 const MAP_WIDTH = 100;

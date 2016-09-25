@@ -1,13 +1,13 @@
 const bindActionCreators = Redux.bindActionCreators;
 const connect = ReactRedux.connect;
 
-function mapStateToPropsBackground(state) {
+function mapStateToPropsThings(state) {
   return {
-    data: state.game.map
+    data: state.game.things
   };
 }
 
-function mapDispatchToPropsBackground(dispatch) {
+function mapDispatchToPropsThings(dispatch) {
   return {
     actions: bindActionCreators({
       addTodo,
@@ -20,7 +20,7 @@ function mapDispatchToPropsBackground(dispatch) {
   };
 }
 
-const Background = connect(
-  mapStateToPropsBackground,
-  mapDispatchToPropsBackground
+const Things = connect(
+  mapStateToPropsThings,
+  mapDispatchToPropsThings
 )(Board);

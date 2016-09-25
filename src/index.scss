@@ -5,6 +5,11 @@ $player-color: blue;
 $enemy-color: red;
 $medicine-color: green;
 $room-color: white;
+$stairs-color: purple;
+
+html {
+  background-color: $bg-color;
+}
 
 .HolyGrail {
   display: flex;
@@ -48,13 +53,13 @@ $room-color: white;
     margin-left: auto;
     margin-right: auto;
     border-collapse: collapse;
-    /* position: absolute; */
+    position: absolute;
     left: 0;
 
     td {
       width: 10px;
       height: 10px;
-      background-color: $board-bg-color;
+      background-color: transparent;
 
       &.player {
         background-color: $player-color;
@@ -70,6 +75,10 @@ $room-color: white;
 
       &.room {
         background-color: $room-color;
+      }
+
+      &.stairs {
+        background-color: $stairs-color;
       }
     }
 

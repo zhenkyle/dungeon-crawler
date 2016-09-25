@@ -1,4 +1,4 @@
-describe('map reducer', () => {
+describe('game reducer', () => {
   it('_getRandomInt should return a integer between min (inclueded)and max (excluded)', () => {
     let a = _getRandomInt(1, 10);
     expect(a >= 1).toBe(true);
@@ -58,8 +58,8 @@ describe('map reducer', () => {
   });
 
   it('should handle initial state', () => {
-    const m = map(undefined, {});
-    expect(m.length).toBe(MAP_HEIGHT);
-    expect(m[0].length).toBe(MAP_WIDTH);
+    const g = game(undefined, {});
+    expect(g.map.length).toBe(MAP_HEIGHT);
+    expect(g.map[0].length).toBe(MAP_WIDTH);
   });
 });

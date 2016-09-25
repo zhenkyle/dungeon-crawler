@@ -19,6 +19,9 @@ function BoardCell({data, actions}) {
     case WEAPON:
       className = "weapon";
       break;
+    case STAIRS:
+      className = "stairs";
+      break;
     default:
       className = null;
   }
