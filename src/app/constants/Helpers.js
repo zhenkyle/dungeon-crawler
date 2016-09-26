@@ -3,16 +3,14 @@ function getArray(x, y, func) {
 }
 
 function getOffset(playerX, playerY, mapWidth, mapHeight, viewWidth, viewHeight) {
-  const x = 0;
-  let y = 0;
+  const left = 0;
+  let top = 0;
   if (playerY < Math.floor(viewHeight / 2)) {
-    y = 0;
+    top = 0;
   } else if (playerY >= Math.floor(viewHeight / 2) && playerY < mapHeight - Math.floor(viewHeight / 2)) {
-    y = -(viewHeight - playerY);
+    top = Math.floor(viewHeight / 2) - playerY;
   } else {
-    y = -(mapHeight - Math.floor(viewHeight / 2));
+    top = Math.floor(viewHeight / 2) - mapHeight;
   }
-  console.log(playerX, playerY, mapWidth, mapHeight, viewWidth, viewHeight);
-  console.log(x, y);
-  return {x, y};
+  return {left, top};
 }
