@@ -10,12 +10,6 @@ function mapStateToPropsThings(state) {
 function mapDispatchToPropsThings(dispatch) {
   return {
     actions: bindActionCreators({
-      addTodo,
-      deleteTodo,
-      editTodo,
-      completeTodo,
-      completeAll,
-      clearCompleted
     }, dispatch)
   };
 }

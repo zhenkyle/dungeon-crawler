@@ -10,12 +10,6 @@ function mapStateToPropsBackground(state) {
 function mapDispatchToPropsBackground(dispatch) {
   return {
     actions: bindActionCreators({
-      addTodo,
-      deleteTodo,
-      editTodo,
-      completeTodo,
-      completeAll,
-      clearCompleted
     }, dispatch)
   };
 }

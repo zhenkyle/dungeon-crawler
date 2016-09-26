@@ -5,10 +5,6 @@ function _getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function _getArray(x, y, func) {
-  return [...Array(y)].map(() => [...Array(x)].map(() => func()));
-}
-
 function _getWall(map, mapWidth, mapHeight) {
   let found = false;
   let x;
@@ -109,7 +105,7 @@ function _getCurrentMapSize(map, mapWidth, mapHeight) {
 
 function _generateMap(width, height) {
   // 1. fill map with soil
-  const map = _getArray(width, height, () => SOIL);
+  const map = getArray(width, height, () => SOIL);
 
   // 2. fill center of the map with a rectangle room
   let w = _getRandomInt(5, 20);
@@ -182,6 +178,7 @@ function _generateMap(width, height) {
 }
 
   // 9. add stairs
+  // 10. add monsters and items
 function _putOneThing(thing, onThings, mapWidth, mapHeight, onMap) {
   let found = false;
   let x;
@@ -197,22 +194,41 @@ function _putOneThing(thing, onThings, mapWidth, mapHeight, onMap) {
 }
 
 function _generateThings(width, height, onMap) {
-  const things = _getArray(width, height, () => BLANK);
+  const things = getArray(width, height, () => BLANK);
   _putOneThing(STAIRS, things, width, height, onMap);
   _putOneThing(WEAPON, things, width, height, onMap);
   [...Array(3)].map((v, i) => i).forEach(() => _putOneThing(MEDICINE, things, width, height, onMap));
   [...Array(5)].map((v, i) => i).forEach(() => _putOneThing(ENEMY, things, width, height, onMap));
-  _putOneThing(PLAYER, things, width, height, onMap);
   return things;
 }
 
-  // 10. add monsters and items
+  // add player
+function _generatePlayer(mapWidth, mapHeight, onMap, onThings) {
+  let found = false;
+  let x;
+  let y;
+  while (!found) {
+    x = _getRandomInt(1, mapWidth - 1);
+    y = _getRandomInt(1, mapHeight - 1);
+    if (onMap[y][x] === SPACE && onThings[y][x] === BLANK) {
+      found = true;
+    }
+  }
+  return {x, y};
+}
+
 const initialMapState = _generateMap(MAP_WIDTH, MAP_HEIGHT);
+const initialThingsState = _generateThings(MAP_WIDTH, MAP_HEIGHT, initialMapState);
+const initialPlayerState = _generatePlayer(MAP_WIDTH, MAP_HEIGHT, initialMapState, initialThingsState);
 
 const initialGameState = {
   map: initialMapState,
-  things: _generateThings(MAP_WIDTH, MAP_HEIGHT, initialMapState)
+  things: initialThingsState,
+  player: initialPlayerState,
+  mapWidth: MAP_WIDTH,
+  mapHeight: MAP_HEIGHT
 };
+
 function game(state = initialGameState, action) {
   return state;
 }
