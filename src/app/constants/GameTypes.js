@@ -18,3 +18,5 @@ const BLACK = 8;
 // map size
 const MAP_WIDTH = 100;
 const MAP_HEIGHT = 80;
+const VIEW_WIDTH = MAP_WIDTH;
+const VIEW_HEIGHT = 40;

@@ -11,6 +11,10 @@ html {
   background-color: $bg-color;
 }
 
+body {
+  overflow: hidden;
+}
+
 .HolyGrail {
   display: flex;
   min-height: 100vh;
@@ -39,22 +43,21 @@ html {
   display: flex;
   flex: 1;
   margin-top: 160px;
-  margin-bottom: 20px;
 }
 
 .HolyGrail-content {
-  width: 1000px;
+  flex: 1;
   margin-left: auto;
   margin-right: auto;
   position: relative;
 
   table {
-    margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
     border-collapse: collapse;
     position: absolute;
-    left: 0;
+    top: 0; /* controlable by javascript */
+    left: 0; /* controlable by javascript */
 
     td {
       width: 10px;
@@ -90,7 +93,9 @@ html {
 
 .HolyGrail-footer {
   text-align: center;
+  background-color: $bg-color;
   padding-top: 10px;
   padding-bottom: 10px;
   border-top: 1px solid $fg-color;
+  position: relative;
 }

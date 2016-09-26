@@ -52,9 +52,9 @@ BoardRow.propTypes = {
   actions: React.PropTypes.object.isRequired
 };
 
-function Board({data, actions}) {
+function Board({data, top, left, actions}) {
   return (
-    <table>
+    <table style={{top: `${top}px`, left: `${left}px`}}>
       <tbody>
       {data.map((v, i) =>
         <BoardRow key={i} data={v} actions={actions}/>
@@ -65,5 +65,7 @@ function Board({data, actions}) {
 }
 Board.propTypes = {
   data: React.PropTypes.array.isRequired,
+  top: React.PropTypes.number.isRequired,
+  left: React.PropTypes.number.isRequired,
   actions: React.PropTypes.object.isRequired
 };
