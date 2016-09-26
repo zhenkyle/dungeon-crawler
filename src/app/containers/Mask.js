@@ -1,7 +1,9 @@
 const connect = ReactRedux.connect;
 
 function mapStateToPropsMask(state) {
-  const {mapWidth, mapHeight, player} = state.game;
+  const {player} = state.game;
+  const mapWidth = MAP_WIDTH;
+  const mapHeight = MAP_HEIGHT;
   const darkness = state.darkness;
   const {x, y} = player;
   let data;
@@ -54,14 +56,6 @@ function mapStateToPropsMask(state) {
   };
 }
 
-function mapDispatchToPropsMask(dispatch) {
-  return {
-    actions: bindActionCreators({
-    }, dispatch)
-  };
-}
-
 const Mask = connect(
-  mapStateToPropsMask,
-  mapDispatchToPropsMask
+  mapStateToPropsMask
 )(Board);

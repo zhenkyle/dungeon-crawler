@@ -1,8 +1,8 @@
-// directions
-const TOP = 0;
+// player move directions
+const UP = 0;
 const RIGHT = 1;
 const BOTTOM = 2;
-const LEFT = 3;
+const DOWN = 3;
 
 // brick types
 const SOIL = 0;

@@ -62,4 +62,28 @@ describe('game reducer', () => {
     expect(g.map.length).toBe(MAP_HEIGHT);
     expect(g.map[0].length).toBe(MAP_WIDTH);
   });
+
+  it('should handle PLAYER_MOVE', () => {
+    const map = [[SOIL, SOIL, SOIL, SOIL, SOIL],
+             [SOIL, SPACE, SPACE, SPACE, SOIL],
+             [SOIL, SPACE, SPACE, SPACE, SOIL],
+             [SOIL, SOIL, SOIL, SOIL, SOIL]];
+    const things = [[TRANS, TRANS, TRANS, TRANS, TRANS],
+             [TRANS, TRANS, TRANS, TRANS, TRANS],
+             [TRANS, TRANS, TRANS, TRANS, TRANS],
+             [TRANS, TRANS, TRANS, TRANS, TRANS]];
+    expect(
+      game({
+        map,
+        things,
+        player: {x: 1, y: 1}},
+        {
+          type: PLAYER_MOVE,
+          direction: RIGHT
+        })
+    ).toEqual({
+      map,
+      things,
+      player: {x: 2, y: 1}});
+  });
 });

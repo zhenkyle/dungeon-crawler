@@ -4,4 +4,11 @@ describe('game actions', () => {
       type: TOGGLE_DARKNESS
     });
   });
+
+  it('palyerMove should create PLAYER_MOVE action', () => {
+    expect(palyerMove(UP)).toEqual({
+      type: PLAYER_MOVE,
+      direction: UP
+    });
+  });
 });

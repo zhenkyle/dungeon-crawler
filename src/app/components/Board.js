@@ -1,4 +1,4 @@
-function BoardCell({data, actions}) {
+function BoardCell({data}) {
   let className;
   switch (data) {
     case SOIL:
@@ -34,30 +34,28 @@ function BoardCell({data, actions}) {
   );
 }
 BoardCell.propTypes = {
-  data: React.PropTypes.number.isRequired,
-  actions: React.PropTypes.object.isRequired
+  data: React.PropTypes.number.isRequired
 };
 
-function BoardRow({data, actions}) {
+function BoardRow({data}) {
   return (
     <tr>
     {data.map((v, i) =>
-      <BoardCell key={i} data={v} actions={actions}/>
+      <BoardCell key={i} data={v}/>
     )}
     </tr>
   );
 }
 BoardRow.propTypes = {
-  data: React.PropTypes.array.isRequired,
-  actions: React.PropTypes.object.isRequired
+  data: React.PropTypes.array.isRequired
 };
 
-function Board({data, top, left, actions}) {
+function Board({data, top, left}) {
   return (
     <table style={{top: `${top}px`, left: `${left}px`}}>
       <tbody>
       {data.map((v, i) =>
-        <BoardRow key={i} data={v} actions={actions}/>
+        <BoardRow key={i} data={v}/>
       )}
       </tbody>
     </table>
@@ -66,6 +64,5 @@ function Board({data, top, left, actions}) {
 Board.propTypes = {
   data: React.PropTypes.array.isRequired,
   top: React.PropTypes.number.isRequired,
-  left: React.PropTypes.number.isRequired,
-  actions: React.PropTypes.object.isRequired
+  left: React.PropTypes.number.isRequired
 };
