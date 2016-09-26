@@ -7,6 +7,7 @@ function App() {
           <Background/>
           <Things/>
           <Ui/>
+          <Mask/>
         </main>
       </div>
       <Footer/>

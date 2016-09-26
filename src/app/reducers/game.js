@@ -186,7 +186,7 @@ function _putOneThing(thing, onThings, mapWidth, mapHeight, onMap) {
   while (!found) {
     x = _getRandomInt(1, mapWidth - 1);
     y = _getRandomInt(1, mapHeight - 1);
-    if (onMap[y][x] === SPACE && onThings[y][x] === BLANK) {
+    if (onMap[y][x] === SPACE && onThings[y][x] === TRANS) {
       found = true;
     }
   }
@@ -194,7 +194,7 @@ function _putOneThing(thing, onThings, mapWidth, mapHeight, onMap) {
 }
 
 function _generateThings(width, height, onMap) {
-  const things = getArray(width, height, () => BLANK);
+  const things = getArray(width, height, () => TRANS);
   _putOneThing(STAIRS, things, width, height, onMap);
   _putOneThing(WEAPON, things, width, height, onMap);
   [...Array(3)].map((v, i) => i).forEach(() => _putOneThing(MEDICINE, things, width, height, onMap));
@@ -210,7 +210,7 @@ function _generatePlayer(mapWidth, mapHeight, onMap, onThings) {
   while (!found) {
     x = _getRandomInt(1, mapWidth - 1);
     y = _getRandomInt(1, mapHeight - 1);
-    if (onMap[y][x] === SPACE && onThings[y][x] === BLANK) {
+    if (onMap[y][x] === SPACE && onThings[y][x] === TRANS) {
       found = true;
     }
   }

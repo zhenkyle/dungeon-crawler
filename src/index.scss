@@ -80,15 +80,9 @@ html {
       &.stairs {
         background-color: $stairs-color;
       }
-    }
 
-    &.mask {
-      td {
+      &.black {
         background-color: $bg-color;
-
-        &.transparent {
-          background-color: transparent;
-        }
       }
     }
   }

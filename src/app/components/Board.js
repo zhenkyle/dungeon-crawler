@@ -22,6 +22,9 @@ function BoardCell({data, actions}) {
     case STAIRS:
       className = "stairs";
       break;
+    case BLACK:
+      className = "black";
+      break;
     default:
       className = null;
   }
