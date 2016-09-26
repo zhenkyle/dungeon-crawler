@@ -189,7 +189,7 @@ function _putOneThing(thing, onThings, mapWidth, mapHeight, onMap) {
   while (!found) {
     x = _getRandomInt(1, mapWidth - 1);
     y = _getRandomInt(1, mapHeight - 1);
-    if (onMap[y][x] === SPACE) {
+    if (onMap[y][x] === SPACE && onThings[y][x] === BLANK) {
       found = true;
     }
   }
@@ -200,14 +200,8 @@ function _generateThings(width, height, onMap) {
   const things = _getArray(width, height, () => BLANK);
   _putOneThing(STAIRS, things, width, height, onMap);
   _putOneThing(WEAPON, things, width, height, onMap);
-  _putOneThing(MEDICINE, things, width, height, onMap);
-  _putOneThing(MEDICINE, things, width, height, onMap);
-  _putOneThing(MEDICINE, things, width, height, onMap);
-  _putOneThing(ENEMY, things, width, height, onMap);
-  _putOneThing(ENEMY, things, width, height, onMap);
-  _putOneThing(ENEMY, things, width, height, onMap);
-  _putOneThing(ENEMY, things, width, height, onMap);
-  _putOneThing(ENEMY, things, width, height, onMap);
+  [...Array(3)].map((v, i) => i).forEach(() => _putOneThing(MEDICINE, things, width, height, onMap));
+  [...Array(5)].map((v, i) => i).forEach(() => _putOneThing(ENEMY, things, width, height, onMap));
   _putOneThing(PLAYER, things, width, height, onMap);
   return things;
 }
