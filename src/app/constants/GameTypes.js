@@ -20,3 +20,7 @@ const MAP_WIDTH = 100;
 const MAP_HEIGHT = 80;
 const VIEW_WIDTH = MAP_WIDTH;
 const VIEW_HEIGHT = 40;
+
+// toggle darkness
+const ON = 1;
+const OFF = 0;

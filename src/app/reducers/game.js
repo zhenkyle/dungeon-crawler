@@ -220,16 +220,24 @@ function _generatePlayer(mapWidth, mapHeight, onMap, onThings) {
 const initialMapState = _generateMap(MAP_WIDTH, MAP_HEIGHT);
 const initialThingsState = _generateThings(MAP_WIDTH, MAP_HEIGHT, initialMapState);
 const initialPlayerState = _generatePlayer(MAP_WIDTH, MAP_HEIGHT, initialMapState, initialThingsState);
+const initialToggleDarknessState = ON;
 
 const initialGameState = {
   map: initialMapState,
   things: initialThingsState,
   player: initialPlayerState,
   mapWidth: MAP_WIDTH,
-  mapHeight: MAP_HEIGHT
+  mapHeight: MAP_HEIGHT,
+  darkness: initialToggleDarknessState
 };
 
 function game(state = initialGameState, action) {
-  return state;
+  switch (action.type) {
+    case TOGGLE_DARKNESS:
+      state.game.darkness = state.game.darkness === ON ? OFF : ON;
+      return state;
+    default:
+      return state;
+  }
 }
 

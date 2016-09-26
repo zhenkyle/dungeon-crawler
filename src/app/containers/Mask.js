@@ -2,7 +2,7 @@ const bindActionCreators = Redux.bindActionCreators;
 const connect = ReactRedux.connect;
 
 function mapStateToPropsMask(state) {
-  const {mapWidth, mapHeight, player} = state.game;
+  const {mapWidth, mapHeight, player, darkness} = state.game;
   const {x, y} = player;
   const data = getArray(mapWidth, mapHeight, () => BLACK);
   const shap = [[BLACK, BLACK, BLACK, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, BLACK, BLACK, BLACK],
