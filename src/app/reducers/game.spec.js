@@ -12,46 +12,46 @@ describe('game reducer', () => {
   });
 
   it('_checkFit should work', () => {
-    let map = [[0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0]];
+    let map = [[{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
+               [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
+               [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
+               [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}]];
     expect(_checkFit(map, 5, 4, 0, 0, 4, 3)).toBe(true);
     expect(_checkFit(map, 5, 4, 0, 0, 5, 4)).toBe(false);
-    map = [[1, 1, 0, 0, 0],
-           [1, 1, 0, 0, 0],
-           [0, 0, 0, 0, 0],
-           [0, 0, 0, 0, 0]];
+    map = [[{type: SPACE}, {type: SPACE}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
+           [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
+           [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
+           [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}]];
     expect(_checkFit(map, 5, 4, 0, 0, 4, 3)).toBe(false);
   });
 
   it('_fillRect should work', () => {
-    const map = [[0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0]];
-    const after = [[1, 1, 1, 1, 1],
-             [1, 1, 1, 1, 1],
-             [1, 1, 1, 1, 1],
-             [1, 1, 1, 1, 1]];
+    const map = [[{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
+                 [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
+                 [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
+                 [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}]];
+    const after = [[{type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SPACE}],
+                   [{type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SPACE}],
+                   [{type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SPACE}],
+                   [{type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SPACE}]];
     _fillRect(map, 0, 0, 5, 4);
     expect(map).toEqual(after);
   });
 
   it('_getCurrentMapSize should work', () => {
-    let map = [[0, 1, 0, 0, 0],
-             [0, 1, 0, 0, 0],
-             [0, 0, 0, 1, 0],
-             [0, 0, 0, 1, 0]];
+    let map = [[{type: SOIL}, {type: SPACE}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
+               [{type: SOIL}, {type: SPACE}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
+               [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SPACE}, {type: SOIL}],
+               [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SPACE}, {type: SOIL}]];
     let width;
     let height;
     ({width, height} = _getCurrentMapSize(map, 5, 4));
     expect(width).toEqual(3);
     expect(height).toEqual(4);
-    map = [[0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0]];
+    map = [[{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
+           [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
+           [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
+           [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}]];
     ({width, height} = _getCurrentMapSize(map, 5, 4));
     expect(width).toEqual(0);
     expect(height).toEqual(0);
@@ -64,14 +64,14 @@ describe('game reducer', () => {
   });
 
   it('should handle PLAYER_MOVE', () => {
-    const map = [[SOIL, SOIL, SOIL, SOIL, SOIL],
-             [SOIL, SPACE, SPACE, SPACE, SOIL],
-             [SOIL, SPACE, SPACE, SPACE, SOIL],
-             [SOIL, SOIL, SOIL, SOIL, SOIL]];
-    const things = [[TRANS, TRANS, TRANS, TRANS, TRANS],
-             [TRANS, TRANS, TRANS, TRANS, TRANS],
-             [TRANS, TRANS, TRANS, TRANS, TRANS],
-             [TRANS, TRANS, TRANS, TRANS, TRANS]];
+    const map = [[{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
+                 [{type: SOIL}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SOIL}],
+                 [{type: SOIL}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SOIL}],
+                 [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}]];
+    const things = [[{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+             [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+             [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+             [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}]];
     expect(
       game({
         map,

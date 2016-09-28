@@ -5,8 +5,8 @@ function mapStateToPropsUI(state) {
   const mapWidth = MAP_WIDTH;
   const mapHeight = MAP_HEIGHT;
   const {x, y} = player;
-  const data = getArray(mapWidth, mapHeight, () => TRANS);
-  data[y][x] = PLAYER;
+  const data = getArray(mapWidth, mapHeight, () => ({type: TRANS}));
+  data[y][x] = {type: PLAYER};
 
   const {x: playerX, y: playerY} = state.game.player;
   const viewWidth = VIEW_WIDTH;

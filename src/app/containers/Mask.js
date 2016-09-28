@@ -8,22 +8,22 @@ function mapStateToPropsMask(state) {
   const {x, y} = player;
   let data;
   if (darkness === OFF) {
-    data = getArray(mapWidth, mapHeight, () => TRANS);
+    data = getArray(mapWidth, mapHeight, () => ({type: TRANS}));
   } else {
-    data = getArray(mapWidth, mapHeight, () => BLACK);
-    const shap = [[BLACK, BLACK, BLACK, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, BLACK, BLACK, BLACK],
-                  [BLACK, BLACK, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, BLACK, BLACK],
-                  [BLACK, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, BLACK],
-                  [TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS],
-                  [TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS],
-                  [TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS],
-                  [TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS],
-                  [TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS],
-                  [TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS],
-                  [TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS],
-                  [BLACK, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, BLACK],
-                  [BLACK, BLACK, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, BLACK, BLACK],
-                  [BLACK, BLACK, BLACK, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, TRANS, BLACK, BLACK, BLACK]
+    data = getArray(mapWidth, mapHeight, () => ({type: BLACK}));
+    const shap = [[{type: BLACK}, {type: BLACK}, {type: BLACK}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: BLACK}, {type: BLACK}, {type: BLACK}],
+                  [{type: BLACK}, {type: BLACK}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: BLACK}, {type: BLACK}],
+                  [{type: BLACK}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: BLACK}],
+                  [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+                  [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+                  [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+                  [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+                  [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+                  [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+                  [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+                  [{type: BLACK}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: BLACK}],
+                  [{type: BLACK}, {type: BLACK}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: BLACK}, {type: BLACK}],
+                  [{type: BLACK}, {type: BLACK}, {type: BLACK}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: BLACK}, {type: BLACK}, {type: BLACK}]
                   ];
     const shapWidth = shap[0].length;
     const shapHeight = shap.length;

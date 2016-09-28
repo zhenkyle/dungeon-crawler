@@ -1,2 +1,6 @@
 const TOGGLE_DARKNESS = 'TOGGLE_DARKNESS';
 const PLAYER_MOVE = 'PLAYER_MOVE';
+const DOWN_STAIRS = 'DOWN_STAIRS';
+const FIGHT = 'FIGHT';
+const EAT = 'EAT';
+const PICKUP = 'PICKUP';

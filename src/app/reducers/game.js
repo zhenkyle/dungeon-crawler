@@ -12,11 +12,11 @@ function _getWall(map, mapWidth, mapHeight) {
   while (!found) {
     x = _getRandomInt(1, mapWidth - 1);
     y = _getRandomInt(1, mapHeight - 1);
-    if (map[y][x] === SOIL &&
-      map[y - 1][x] === SPACE ||
-      map[y + 1][x] === SPACE ||
-      map[y][x - 1] === SPACE ||
-      map[y][x + 1] === SPACE) {
+    if (map[y][x].type === SOIL &&
+      map[y - 1][x].type === SPACE ||
+      map[y + 1][x].type === SPACE ||
+      map[y][x - 1].type === SPACE ||
+      map[y][x + 1].type === SPACE) {
       found = true;
     }
   }
@@ -29,7 +29,7 @@ function _checkFit(map, mapWidth, mapHeight, x1, y1, x2, y2) {
   }
   for (let i = x1; i <= x2; i++) {
     for (let j = y1; j <= y2; j++) {
-      if (map[j][i] !== SOIL) {
+      if (map[j][i].type !== SOIL) {
         return false;
       }
     }
@@ -40,7 +40,7 @@ function _checkFit(map, mapWidth, mapHeight, x1, y1, x2, y2) {
 function _fillRect(map, x, y, w, h) {
   for (let i = x; i < x + w; i++) {
     for (let j = y; j < y + h; j++) {
-      map[j][i] = SPACE;
+      map[j][i].type = SPACE;
     }
   }
 }
@@ -53,7 +53,7 @@ function _getCurrentMapSize(map, mapWidth, mapHeight) {
 
   for (let i = 0; i < mapWidth; i++) {
     for (let j = 0; j < mapHeight; j++) {
-      if (map[j][i] !== SOIL) {
+      if (map[j][i].type !== SOIL) {
         minX = i;
         break;
       }
@@ -65,7 +65,7 @@ function _getCurrentMapSize(map, mapWidth, mapHeight) {
 
   for (let i = mapWidth - 1; i >= 0; i--) {
     for (let j = mapHeight - 1; j >= 0; j--) {
-      if (map[j][i] !== SOIL) {
+      if (map[j][i].type !== SOIL) {
         maxX = i;
         break;
       }
@@ -77,7 +77,7 @@ function _getCurrentMapSize(map, mapWidth, mapHeight) {
 
   for (let j = 0; j < mapHeight; j++) {
     for (let i = 0; i < mapWidth; i++) {
-      if (map[j][i] !== SOIL) {
+      if (map[j][i].type !== SOIL) {
         minY = j;
         break;
       }
@@ -89,7 +89,7 @@ function _getCurrentMapSize(map, mapWidth, mapHeight) {
 
   for (let j = mapHeight - 1; j >= 0; j--) {
     for (let i = mapWidth - 1; i >= 0; i--) {
-      if (map[j][i] !== SOIL) {
+      if (map[j][i].type !== SOIL) {
         maxY = j;
         break;
       }
@@ -105,7 +105,7 @@ function _getCurrentMapSize(map, mapWidth, mapHeight) {
 
 function _generateMap(width, height) {
   // 1. fill map with soil
-  const map = getArray(width, height, () => SOIL);
+  const map = getArray(width, height, () => ({type: SOIL}));
 
   // 2. fill center of the map with a rectangle room
   let w = _getRandomInt(5, 20);
@@ -126,34 +126,32 @@ function _generateMap(width, height) {
     while (!fit) {
       // 3. find a random wall on any room
       ({x, y} = _getWall(map, width, height));
-
       // 4. get a random rectangle room
       w = _getRandomInt(5, 20);
       h = _getRandomInt(5, 20);
-
       // 5. see if it fit in map
-      if (map[y - 1][x] === SPACE) { // GOES DOWN
+      if (map[y - 1][x].type === SPACE) { // GOES DOWN
         x1 = _getRandomInt(x - w + 1, x + 1);
         y1 = y + 1;
         x2 = x1 + w - 1;
         y2 = y1 + h - 1;
         fit = _checkFit(map, width, height, x1 - 1, y1 - 1, x2 + 1, y2 + 1);
       }
-      if (map[y + 1][x] === SPACE) { // GOES UP
+      if (map[y + 1][x].type === SPACE) { // GOES UP
         x1 = _getRandomInt(x - w + 1, x + 1);
         y2 = y - 1;
         y1 = y2 - h + 1;
         x2 = x1 + w - 1;
         fit = _checkFit(map, width, height, x1 - 1, y1 - 1, x2 + 1, y2 + 1);
       }
-      if (map[y][x - 1] === SPACE) { // GOES RIGHT
+      if (map[y][x - 1].type === SPACE) { // GOES RIGHT
         y1 = _getRandomInt(y - h + 1, y + 1);
         x1 = x + 1;
         y2 = y1 + h - 1;
         x2 = x1 + w - 1;
         fit = _checkFit(map, width, height, x1 - 1, y1 - 1, x2 + 1, y2 + 1);
       }
-      if (map[y][x + 1] === SPACE) { // GOES LEFT
+      if (map[y][x + 1].type === SPACE) { // GOES LEFT
         y1 = _getRandomInt(y - h + 1, y + 1);
         x2 = x - 1;
         x1 = x2 - w + 1;
@@ -186,15 +184,15 @@ function _putOneThing(thing, onThings, mapWidth, mapHeight, onMap) {
   while (!found) {
     x = _getRandomInt(1, mapWidth - 1);
     y = _getRandomInt(1, mapHeight - 1);
-    if (onMap[y][x] === SPACE && onThings[y][x] === TRANS) {
+    if (onMap[y][x].type === SPACE && onThings[y][x].type === TRANS) {
       found = true;
     }
   }
-  onThings[y][x] = thing;
+  onThings[y][x].type = thing;
 }
 
 function _generateThings(width, height, onMap) {
-  const things = getArray(width, height, () => TRANS);
+  const things = getArray(width, height, () => ({type: TRANS}));
   _putOneThing(STAIRS, things, width, height, onMap);
   _putOneThing(WEAPON, things, width, height, onMap);
   [...Array(3)].map((v, i) => i).forEach(() => _putOneThing(MEDICINE, things, width, height, onMap));
@@ -210,7 +208,7 @@ function _generatePlayer(mapWidth, mapHeight, onMap, onThings) {
   while (!found) {
     x = _getRandomInt(1, mapWidth - 1);
     y = _getRandomInt(1, mapHeight - 1);
-    if (onMap[y][x] === SPACE && onThings[y][x] === TRANS) {
+    if (onMap[y][x].type === SPACE && onThings[y][x].type === TRANS) {
       found = true;
     }
   }

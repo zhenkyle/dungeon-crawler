@@ -41,7 +41,7 @@ function BoardRow({data}) {
   return (
     <tr>
     {data.map((v, i) =>
-      <BoardCell key={i} data={v}/>
+      <BoardCell key={i} data={v.type}/>
     )}
     </tr>
   );
