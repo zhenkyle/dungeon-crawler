@@ -2,7 +2,7 @@ function toggleDarkness() {
   return {type: TOGGLE_DARKNESS};
 }
 
-function palyerMove(direction) {
+function playerMove(direction) {
   return {type: PLAYER_MOVE, direction};
 }
 
@@ -25,7 +25,30 @@ function pickup(direction) {
 function handleMove(direction) {
   return (dispatch, getState) => {
     const state = getState();
-    // check things in the direction
-    // dispatch PLAYER_MOVE, DOWN_STAIRS, EAT, PICKUP here
+    const {game, player} = state;
+    const {x, y} = getNewPosition(player, direction);
+
+    if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT) {
+      return;
+    }
+    switch (game.map[y][x].type) {
+      case SPACE:
+        dispatch(playerMove(direction));
+        break;
+      case STAIRS:
+        dispatch(downStairs(direction));
+        break;
+      case ENEMY:
+        dispatch(fight(direction));
+        break;
+      case MEDICINE:
+        dispatch(eat(direction));
+        break;
+      case WEAPON:
+        dispatch(pickup(direction));
+        break;
+      default:
+        break;
+    }
   };
 }

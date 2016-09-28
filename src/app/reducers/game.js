@@ -228,24 +228,7 @@ const initialGameState = {
 function game(state = initialGameState, action) {
   switch (action.type) {
     case PLAYER_MOVE: {
-      let {x, y} = state.player;
-      switch (action.direction) {
-        case UP:
-          y -= 1;
-          break;
-        case RIGHT:
-          x += 1;
-          break;
-        case DOWN:
-          y += 1;
-          break;
-        case LEFT:
-          x -= 1;
-          break;
-        default:
-          break;
-      }
-      return {...state, player: {x, y}};
+      return {...state, player: getNewPosition(player, action.type)};
     }
     default:
       return state;

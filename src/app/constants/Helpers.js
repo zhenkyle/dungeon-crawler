@@ -14,3 +14,23 @@ function getOffset(playerX, playerY, mapWidth, mapHeight, viewWidth, viewHeight)
   }
   return {left, top};
 }
+
+function getNewPosition({x, y}, direction) {
+  switch (direction) {
+    case UP:
+      y -= 1;
+      break;
+    case RIGHT:
+      x += 1;
+      break;
+    case DOWN:
+      y += 1;
+      break;
+    case LEFT:
+      x -= 1;
+      break;
+    default:
+      break;
+  }
+  return {x, y};
+}
