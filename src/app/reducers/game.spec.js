@@ -86,4 +86,31 @@ describe('game reducer', () => {
       things,
       player: {x: 2, y: 1}});
   });
+
+  it('should handle DOWN_STAIRS', () => {
+    const map = [[{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
+                 [{type: SOIL}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SOIL}],
+                 [{type: SOIL}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SOIL}],
+                 [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}]];
+    const things = [[{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+             [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: STAIRS}, {type: TRANS}],
+             [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+             [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}]];
+    const player = {x: 1, y: 1};
+    const {map: newMap, things: newThings, player: newPlayer} = game({
+      map,
+      things,
+      player},
+      {
+        type: DOWN_STAIRS,
+        direction: RIGHT
+      });
+
+    expect(newMap).toBeDefined();
+    expect(newThings).toBeDefined();
+    expect(newPlayer).toBeDefined();
+    expect(newMap).not.toEqual(map);
+    expect(newThings).not.toEqual(things);
+    expect(newPlayer).not.toEqual(player);
+  });
 });

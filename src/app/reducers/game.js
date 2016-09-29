@@ -212,7 +212,10 @@ function _generatePlayer(mapWidth, mapHeight, onMap, onThings) {
       found = true;
     }
   }
-  return {x, y};
+  const health = 100;
+  const level = 1;
+  const exps = 0;
+  return {x, y, health, level, exps};
 }
 
 const initialMapState = _generateMap(MAP_WIDTH, MAP_HEIGHT);
@@ -228,7 +231,22 @@ const initialGameState = {
 function game(state = initialGameState, action) {
   switch (action.type) {
     case PLAYER_MOVE: {
-      return {...state, player: getNewPosition(player, action.type)};
+      return {...state, player: getNewPosition(state.player, action.direction)};
+    }
+    case DOWN_STAIRS: {
+      const map = _generateMap(MAP_WIDTH, MAP_HEIGHT);
+      const things = _generateThings(MAP_WIDTH, MAP_HEIGHT, map);
+      const player = _generatePlayer(MAP_WIDTH, MAP_HEIGHT, map, things);
+      return {
+        map,
+        things,
+        player
+      };
+    }
+    case FIGHT: {
+      const pos = getNewPosition(state.player, action.direction);
+      const enemy = state.things[pos[y]][pos[x]];
+      return {...state};
     }
     default:
       return state;

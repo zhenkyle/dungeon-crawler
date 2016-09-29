@@ -25,13 +25,15 @@ function pickup(direction) {
 function handleMove(direction) {
   return (dispatch, getState) => {
     const state = getState();
-    const {game, player} = state;
+    const {game} = state;
+    const {map, things, player} = game;
     const {x, y} = getNewPosition(player, direction);
 
     if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT) {
       return;
     }
-    switch (game.map[y][x].type) {
+    const brickType = things[y][x].type === TRANS ? map[y][x].type : things[y][x].type;
+    switch (brickType) {
       case SPACE:
         dispatch(playerMove(direction));
         break;
