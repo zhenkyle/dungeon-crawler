@@ -24,3 +24,16 @@ const VIEW_HEIGHT = 40;
 // toggle darkness
 const ON = 1;
 const OFF = 0;
+
+// WEAPONS
+const WEAPONS = [
+{type: WEAPON, name: "wood stick", attack: 10},
+{type: WEAPON, name: "stone stick", attack: 20},
+{type: WEAPON, name: "stone axe", attack: 30},
+{type: WEAPON, name: "copper sword", attack: 40},
+{type: WEAPON, name: "iron sword", attack: 50},
+{type: WEAPON, name: "long bow", attack: 60},
+{type: WEAPON, name: "sharp spear", attack: 70},
+{type: WEAPON, name: "dragon crystal", attack: 80}
+];
+
