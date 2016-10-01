@@ -1,4 +1,4 @@
-fdescribe('Helpers', () => {
+describe('Helpers', () => {
   const mapWithAllSoil = [[{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
                           [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
                           [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
@@ -18,6 +18,11 @@ fdescribe('Helpers', () => {
                            [{type: SOIL}, {type: SPACE}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
                            [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SPACE}, {type: SOIL}],
                            [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SPACE}, {type: SOIL}]];
+
+  const someThings = [[{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+                           [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+                           [{type: TRANS}, {type: ENEMY}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+                           [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}]];
 
   it('getArray should work', () => {
     const a = getArray(10, 5, () => 1);
@@ -120,5 +125,94 @@ fdescribe('Helpers', () => {
     const {width, height} = getCurrentMapSize(map, 100, 80);
     expect(width).toBeGreaterThan(0);
     expect(height).toBeGreaterThan(0);
+  });
+
+  it('putOneThing should work', () => {
+    const map = mapWithARoom.map(row => row.map(v => ({...v})));
+    const things = someThings.map(row => row.map(v => ({...v})));
+    const enemy = {type: ENEMY};
+    putOneThing(enemy, things, 5, 4, map, 1, 1);
+    let found = false;
+    for (let i = 1; i < 4; i++) {
+      for (let j = 1; j < 3; j++) {
+        console.log(things[j][i]);
+        if (things[j][i] === enemy) {
+          found = true;
+        }
+      }
+    }
+    expect(found).toBe(true);
+  });
+
+  it('put a boss should work', () => {
+    const map = mapWithARoom.map(row => row.map(v => ({...v})));
+    const things = someThings.map(row => row.map(v => ({...v})));
+    const enemy = {type: BOSS};
+    putOneThing(enemy, things, 5, 4, map, 2, 2);
+    let found = false;
+    for (let i = 1; i < 4; i++) {
+      for (let j = 1; j < 3; j++) {
+        if (things[j][i] === enemy) {
+          found = true;
+        }
+      }
+    }
+    expect(found).toBe(true);
+  });
+
+  it('getWeaponByFloor should work', () => {
+    const weapon = getWeaponByFloor(1);
+    expect(weapon).toBeDefined();
+    expect(weapon.type).toBe(WEAPON);
+    expect(["wood stick", "stone stick"]).toContain(weapon.name);
+  });
+
+  it('getEnemyByFloor should work', () => {
+    const enemy = getEnemyByFloor(1);
+    expect(enemy).toBeDefined();
+    expect(enemy.type).toBe(ENEMY);
+    expect(enemy.level).toBe(1);
+    expect(enemy.attack).toBe(10);
+    expect(enemy.life).toBeGreaterThan(39);
+    expect(enemy.life).toBeLessThan(61);
+    expect(enemy.life).toBe(enemy.health);
+  });
+
+  it('getBossByFloor should work', () => {
+    const enemy = getBossByFloor(4);
+    expect(enemy).toBeDefined();
+    expect(enemy.type).toBe(BOSS);
+    expect(enemy.level).toBe(4);
+    expect(enemy.attack).toBe(120);
+    expect(enemy.life).toBeGreaterThan(149);
+    expect(enemy.life).toBeLessThan(171);
+    expect(enemy.life).toBe(enemy.health);
+  });
+
+  it('calPlayerAttack should work', () => {
+    const weapon = WEAPONS[0];
+    const attack = calPlayerAttack(1, weapon);
+    expect(attack).toBe(10 + 10);
+    expect(calPlayerAttack(1)).toBe(10);
+  });
+
+  it('generatePlayerPosition should work', () => {
+    const map = mapWithARoom;
+    const things = someThings;
+    const playerPosition = generatePlayerPosition(map, things, 5, 4);
+    expect(playerPosition).toBeDefined();
+    const {x, y} = playerPosition;
+    expect([2, 3]).toContain(x);
+    expect([1, 2]).toContain(y);
+  });
+
+  it('generateThingsAndEnemies should work', () => {
+    const map = getArray(100, 80, () => ({type: SPACE}));
+    const {things, enemies} = generateThingsAndEnemies(map, 100, 80, 4);
+    expect(things).toBeDefined();
+    expect(enemies).toBeDefined();
+    expect(things.length).toBe(80);
+    expect(things[0].length).toBe(100);
+    expect(enemies[enemies.length - 1].type).toBe(BOSS);
   });
 });

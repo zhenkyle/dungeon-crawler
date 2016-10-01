@@ -225,9 +225,11 @@ function generateMap(width, height) {
   // 10. add monsters and items
 function putOneThing(thing, onThings, mapWidth, mapHeight, onMap, width, height) {
   let found = false;
+  let x;
+  let y;
   while (!found) {
-    x += getRandomInt(1, mapWidth - 1);
-    y += getRandomInt(1, mapHeight - 1);
+    x = getRandomInt(1, mapWidth - 1);
+    y = getRandomInt(1, mapHeight - 1);
     if (checkFit(onMap, mapWidth, mapHeight, x, y, x + width - 1, y + height - 1, SPACE) &&
         checkFit(onThings, mapWidth, mapHeight, x, y, x + width - 1, y + height - 1, TRANS)) {
       found = true;
@@ -242,24 +244,17 @@ function getWeaponByFloor(dungeonFloor) {
 }
 
 function getEnemyByFloor(dungeonFloor) {
-  const life = getRandomInt(dungeonFloor * 10 + 40 - 10, dungeonFloor * 10 + 40 + 10);
+  const life = getRandomInt(dungeonFloor * 10 + 40 - 10, dungeonFloor * 10 + 40 + 11);
   const level = dungeonFloor;
   const attack = level * 10;
   return {type: ENEMY, level, life, health: life, attack};
 }
 
-function generateThings(onMap, dungeonFloor) {
-  const width = MAP_WIDTH;
-  const height = MAP_HEIGHT;
-  const things = getArray(width, height, () => ({type: TRANS}));
-  putOneThing({type: STAIRS}, things, width, height, onMap);
-  putOneThing(getWeaponByFloor(dungeonFloor), things, width, height, onMap);
-  [...Array(3)].map((v, i) => i).forEach(() => putOneThing({type: MEDICINE, capacity: 50}, things, width, height, onMap));
-  [...Array(5)].map((v, i) => i).forEach(() => putOneThing(getEnemyByFloor(dungeonFloor), things, width, height, onMap));
-  if (dungeonFloor === 4) {
-    _putBoss();
-  }
-  return things;
+function getBossByFloor(dungeonFloor) {
+  const life = getRandomInt(dungeonFloor * 30 + 40 - 10, dungeonFloor * 30 + 40 + 11);
+  const level = dungeonFloor;
+  const attack = level * 30;
+  return {type: BOSS, level, life, health: life, attack};
 }
 
   // add player
@@ -268,18 +263,43 @@ function calPlayerAttack(level, weapon) {
   return level * 10 + weaponAttack;
 }
 
-function generatePlayer(onMap, onThings) {
-  const mapWidth = MAP_WIDTH;
-  const mapHeight = MAP_HEIGHT;
+function generatePlayerPosition(onMap, onThings, mapWidth, mapHeight) {
   let found = false;
   let x;
   let y;
   while (!found) {
     x = getRandomInt(1, mapWidth - 1);
     y = getRandomInt(1, mapHeight - 1);
-    if (onMap[y][x].type === SPACE && onThings[y][x].type === TRANS) {
+    if (checkFit(onMap, mapWidth, mapHeight, x, y, x, y, SPACE) &&
+        checkFit(onThings, mapWidth, mapHeight, x, y, x, y, TRANS)) {
       found = true;
     }
   }
   return {x, y};
+}
+
+function generateThingsAndEnemies(onMap, width, height, dungeonFloor) {
+  const things = getArray(width, height, () => ({type: TRANS}));
+  const enemies = [];
+  // put a down stairs
+  putOneThing({type: STAIRS}, things, width, height, onMap, 1, 1);
+  // put a weapon for this floor
+  putOneThing(getWeaponByFloor(dungeonFloor), things, width, height, onMap, 1, 1);
+  // put 3 to 5 medicines
+  [...Array(getRandomInt(3, 6))].map((v, i) => i).forEach(() => {
+    putOneThing({type: MEDICINE, capacity: 50}, things, width, height, onMap, 1, 1);
+  });
+  // put 5 to 7 enemies
+  [...Array(getRandomInt(5, 8))].map((v, i) => i).forEach(() => {
+    const enemy = getEnemyByFloor(dungeonFloor);
+    enemies.push(enemy);
+    putOneThing({type: ENEMY, id: enemies.length - 1}, things, width, height, onMap, 1, 1);
+  });
+  if (dungeonFloor === 4) {
+    // put a boss
+    const boss = getBossByFloor(dungeonFloor);
+    enemies.push(boss);
+    putOneThing({type: BOSS, id: enemies.lenght - 1}, things, width, height, onMap, 3, 3);
+  }
+  return {things, enemies};
 }

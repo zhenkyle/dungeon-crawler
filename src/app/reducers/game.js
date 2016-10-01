@@ -21,7 +21,8 @@ function generateInitialGameState() {
   };
 }
 
-const initialGameState = generateInitialGameState();
+// const initialGameState = generateInitialGameState();
+const initialGameState = {};
 
 function game(state = initialGameState, action) {
   switch (action.type) {

@@ -14,6 +14,7 @@ const WEAPON = 5;
 const STAIRS = 6;
 const TRANS = 7;
 const BLACK = 8;
+const BOSS = 9;
 
 // map size
 const MAP_WIDTH = 100;
