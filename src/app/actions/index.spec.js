@@ -1,4 +1,19 @@
 describe('game actions', () => {
+  const mapWithARoom = [[{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
+                       [{type: SOIL}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SOIL}],
+                       [{type: SOIL}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SOIL}],
+                       [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}]];
+
+  const someThings = [[{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+                     [{type: TRANS}, {type: MEDICINE}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+                     [{type: TRANS}, {type: TRANS}, {type: ENEMY}, {type: TRANS}, {type: TRANS}],
+                     [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}]];
+
+  const someOtherThings = [[{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+                     [{type: TRANS}, {type: WEAPON}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+                     [{type: TRANS}, {type: TRANS}, {type: STAIRS}, {type: TRANS}, {type: TRANS}],
+                     [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}]];
+
   it('toggleDarkness should create TOGGLE_DARKNESS action', () => {
     expect(toggleDarkness()).toEqual({
       type: TOGGLE_DARKNESS
@@ -13,9 +28,13 @@ describe('game actions', () => {
   });
 
   it('downStairs should create DOWN_STAIRS action', () => {
-    expect(downStairs(UP)).toEqual({
+    expect(downStairs("map", "things", "enemies", "player", "dungeonFloor")).toEqual({
       type: DOWN_STAIRS,
-      direction: UP
+      map: "map",
+      things: "things",
+      enemies: "enemies",
+      player: "player",
+      dungeonFloor: "dungeonFloor"
     });
   });
 
@@ -46,16 +65,8 @@ describe('game actions', () => {
     const dispatch = jasmine.createSpy('spy');
     const getState = () => ({
       game: {
-        map:
-          [[{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
-           [{type: SOIL}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SOIL}],
-           [{type: SOIL}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SOIL}],
-           [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}]],
-        things:
-          [[{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
-           [{type: TRANS}, {type: MEDICINE}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
-           [{type: TRANS}, {type: TRANS}, {type: ENEMY}, {type: TRANS}, {type: TRANS}],
-           [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}]],
+        map: mapWithARoom,
+        things: someThings,
         player: {x: 2, y: 1}
       }
     });
@@ -69,16 +80,8 @@ describe('game actions', () => {
     const dispatch = jasmine.createSpy('spy');
     const getState = () => ({
       game: {
-        map:
-          [[{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
-           [{type: SOIL}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SOIL}],
-           [{type: SOIL}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SOIL}],
-           [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}]],
-        things:
-          [[{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
-           [{type: TRANS}, {type: MEDICINE}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
-           [{type: TRANS}, {type: TRANS}, {type: ENEMY}, {type: TRANS}, {type: TRANS}],
-           [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}]],
+        map: mapWithARoom,
+        things: someThings,
         player: {x: 2, y: 1}
       }
     });
@@ -92,17 +95,9 @@ describe('game actions', () => {
     const dispatch = jasmine.createSpy('spy');
     const getState = () => ({
       game: {
-        map:
-          [[{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
-           [{type: SOIL}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SOIL}],
-           [{type: SOIL}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SOIL}],
-           [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}]],
-        things:
-          [[{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
-           [{type: TRANS}, {type: MEDICINE}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
-           [{type: TRANS}, {type: TRANS}, {type: ENEMY}, {type: TRANS}, {type: TRANS}],
-           [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}]],
-        player: {x: 1, y: 1}
+        map: mapWithARoom,
+        things: someThings,
+        player: {x: 2, y: 1}
       }
     });
     fn(dispatch, getState);
@@ -115,21 +110,19 @@ describe('game actions', () => {
     const dispatch = jasmine.createSpy('spy');
     const getState = () => ({
       game: {
-        map:
-          [[{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
-           [{type: SOIL}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SOIL}],
-           [{type: SOIL}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SOIL}],
-           [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}]],
-        things:
-          [[{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
-           [{type: TRANS}, {type: MEDICINE}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
-           [{type: TRANS}, {type: TRANS}, {type: STAIRS}, {type: TRANS}, {type: TRANS}],
-           [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}]],
+        map: mapWithARoom,
+        things: someOtherThings,
         player: {x: 2, y: 1}
       }
     });
     fn(dispatch, getState);
-    expect(dispatch).toHaveBeenCalledWith({type: DOWN_STAIRS, direction: DOWN});
+    const args = dispatch.calls.first().args[0];
+    expect(args.type).toBe(DOWN_STAIRS);
+    expect(args.map).toBeDefined();
+    expect(args.things).toBeDefined();
+    expect(args.enemies).toBeDefined();
+    expect(args.player).toBeDefined();
+    expect(args.dungeonFloor).toBeDefined();
   });
 
   it('handleMove should create pickup action', () => {
@@ -138,16 +131,8 @@ describe('game actions', () => {
     const dispatch = jasmine.createSpy('spy');
     const getState = () => ({
       game: {
-        map:
-          [[{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}],
-           [{type: SOIL}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SOIL}],
-           [{type: SOIL}, {type: SPACE}, {type: SPACE}, {type: SPACE}, {type: SOIL}],
-           [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}]],
-        things:
-          [[{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
-           [{type: TRANS}, {type: WEAPON}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
-           [{type: TRANS}, {type: TRANS}, {type: ENEMY}, {type: TRANS}, {type: TRANS}],
-           [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}]],
+        map: mapWithARoom,
+        things: someOtherThings,
         player: {x: 2, y: 1}
       }
     });

@@ -6,8 +6,8 @@ function playerMove(direction) {
   return {type: PLAYER_MOVE, direction};
 }
 
-function downStairs(map, things, player, dungeonFloor) {
-  return {type: DOWN_STAIRS, direction};
+function downStairs(map, things, enemies, player, dungeonFloor) {
+  return {type: DOWN_STAIRS, map, things, enemies, player, dungeonFloor};
 }
 
 function fight(direction) {
@@ -26,7 +26,7 @@ function handleMove(direction) {
   return (dispatch, getState) => {
     const state = getState();
     const {game} = state;
-    const {map, things, player} = game;
+    const {map, things, enemies, player} = game;
     const {x, y} = getNewPosition(player, direction);
 
     if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT) {
@@ -39,9 +39,10 @@ function handleMove(direction) {
         break;
       case STAIRS: {
         const map = generateMap(MAP_WIDTH, MAP_HEIGHT);
-        const things = generateThings(MAP_WIDTH, MAP_HEIGHT, map);
-        const player = generatePlayer(MAP_WIDTH, MAP_HEIGHT, map, things);
-        dispatch(downStairs(map, things, player, getState().game.dungeonFloor + 1));
+        const dungeonFloor = game.dungeonFloor + 1;
+        const {things, enemies} = generateThingsAndEnemies(map, MAP_WIDTH, MAP_HEIGHT, dungeonFloor);
+        const player = generatePlayerPosition(map, things, MAP_WIDTH, MAP_HEIGHT);
+        dispatch(downStairs(map, things, enemies, player, dungeonFloor));
         break;
       }
       case ENEMY:
