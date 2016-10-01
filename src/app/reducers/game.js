@@ -1,7 +1,7 @@
 function generateInitialGameState() {
   const map = generateMap(MAP_WIDTH, MAP_HEIGHT);
-  const things = generateThings(map);
-  let player = generatePlayer(map, things);
+  const {things, enemies} = generateThingsAndEnemies(map, MAP_WIDTH, MAP_HEIGHT, 1);
+  let player = generatePlayerPosition(map, things, MAP_WIDTH, MAP_HEIGHT);
 
   const health = 100;
   const level = 1;
@@ -15,6 +15,7 @@ function generateInitialGameState() {
   return {
     map,
     things,
+    enemies,
     player,
     message: "",
     dungeonFloor: 1
@@ -22,7 +23,7 @@ function generateInitialGameState() {
 }
 
 // const initialGameState = generateInitialGameState();
-const initialGameState = {};
+const initialGameState = generateInitialGameState();
 
 function game(state = initialGameState, action) {
   switch (action.type) {
@@ -30,15 +31,15 @@ function game(state = initialGameState, action) {
       return {...state, player: getNewPosition(state.player, action.direction)};
     }
     case DOWN_STAIRS: {
-      const map = generateMap(MAP_WIDTH, MAP_HEIGHT);
-      const things = generateThings(MAP_WIDTH, MAP_HEIGHT, map);
-      let player = generatePlayer(MAP_WIDTH, MAP_HEIGHT, map, things);
-
-      player = {...player, health, level, exps, nextLevelExps, weapon, attack};
+      const {map, things, enemies, player, dungeonFloor} = action;
+      const oldPlayer = state.player;
+      const nextPlayer = {...oldPlayer, ...player};
       return {...state,
         map,
         things,
-        player
+        enemies,
+        player: nextPlayer,
+        dungeonFloor
       };
     }
     case FIGHT: {
