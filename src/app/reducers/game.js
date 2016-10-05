@@ -44,36 +44,38 @@ function game(state = initialGameState, action) {
     }
     case FIGHT: {
       const pos = getNewPosition(state.player, action.direction);
-      let enemy = {...state.things[pos[y]][pos[x]]};
+      const things = state.things.map(row => row.map(v => v));
+      let enemyInThings = things[pos.y][pos.x];
+      const enemies = [...state.enemies];
+      const enemy = {...enemies[enemyInThings.id]};
+      enemies[enemyInThings.id] = enemy;
       const player = {...state.player};
-      const tempState = {...state};
+      let message = state.message;
 
+      // player attack enemy
       enemy.health -= player.attack;
       if (enemy.health <= 0) {
         player.exps += enemy.life;
         if (player.exps >= player.nextLevelExps) {
           player.exps -= player.nextLevelExps;
           player.level += 1;
-          player.nextLevelExps = level * 50;
+          player.nextLevelExps = player.level * 50;
           player.attack = calPlayerAttack(player.level, player.weapon);
         }
-        player.x = pos[x];
-        player.y = pos[y];
-        enemy = {type: TRANS};
+        player.x = pos.x;
+        player.y = pos.y;
+        enemyInThings = {type: TRANS};
+        things[pos.y][pos.x] = enemyInThings;
       }
-      tempState.things = {...tempState.things};
-      tempState.things[y][x] = enemy;
 
+      // enemy attack
       if (enemy.health > 0) {
         player.health -= enemy.attack;
         if (player.health <= 0) {
-          tempState.map = generateMap(MAP_WIDTH, MAP_HEIGHT);
-          tempState.things = generateThings(MAP_WIDTH, MAP_HEIGHT, map);
-          tempState.player = generatePlayer(MAP_WIDTH, MAP_HEIGHT, map, things);
-          tempState.message = "You've been killed. Better luck next time.";
+          message = "You've been killed. Better luck next time.";
         }
       }
-      return tempState;
+      return {...state, enemies, things, player, message};
     }
     default:
       return state;

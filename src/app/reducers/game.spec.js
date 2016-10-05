@@ -5,8 +5,8 @@ describe('game reducer', () => {
                         [{type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}, {type: SOIL}]];
 
   const someThings = [[{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
+                           [{type: TRANS}, {type: ENEMY, id: 0}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
                            [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
-                           [{type: TRANS}, {type: ENEMY}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
                            [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}]];
 
   const someOtherThings = [[{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
@@ -86,5 +86,45 @@ describe('game reducer', () => {
     expect(newPlayer).not.toEqual(player);
     expect(newPlayer.health).toEqual(50);
     expect(newDungeonFloor).toEqual(2);
+  });
+
+  it('should handle FIGHT when nobody get killed', () => {
+    const map = mapWithARoom;
+    const things = someThings;
+    const player = {x: 2, y: 1, health: 50, attack: 10, exps: 0, level: 1, weapon: null, nextLevelExps: 50};
+    const enemies = [{type: ENEMY, life: 50, health: 50, attack: 10}];
+    const state = {map, things, player, enemies, message: ""};
+    const newState = game(state, {type: FIGHT, direction: LEFT});
+    expect(newState.message).toBe("");
+    expect(newState.enemies[0]).toEqual({type: ENEMY, life: 50, health: 40, attack: 10});
+    expect(newState.player).toEqual({x: 2, y: 1, health: 40, attack: 10, exps: 0, level: 1, weapon: null, nextLevelExps: 50});
+    expect(newState.things[1][1]).toEqual({type: ENEMY, id: 0});
+  });
+
+  it('should handle FIGHT player kill enemy', () => {
+    const map = mapWithARoom;
+    const things = someThings;
+    const player = {x: 2, y: 1, health: 50, attack: 50, exps: 0, level: 1, weapon: null, nextLevelExps: 50};
+    const enemies = [{type: ENEMY, life: 50, health: 50, attack: 10}];
+    const state = {map, things, player, enemies, message: ""};
+    deepFreeze(state);
+    const newState = game(state, {type: FIGHT, direction: LEFT});
+    expect(newState.message).toBe("");
+    expect(newState.enemies[0]).toEqual({type: ENEMY, life: 50, health: 0, attack: 10});
+    expect(newState.player).toEqual({x: 1, y: 1, health: 50, attack: 20, exps: 0, level: 2, weapon: null, nextLevelExps: 100});
+    expect(newState.things[1][1]).toEqual({type: TRANS});
+  });
+
+  it('should handle FIGHT player killed by enemy', () => {
+    const map = mapWithARoom;
+    const things = someThings;
+    const player = {x: 2, y: 1, health: 50, attack: 10, exps: 0, level: 1, weapon: null, nextLevelExps: 50};
+    const enemies = [{type: ENEMY, life: 50, health: 50, attack: 50}];
+    const state = {map, things, player, enemies, message: ""};
+    const newState = game(state, {type: FIGHT, direction: LEFT});
+    expect(newState.message).toBe("You've been killed. Better luck next time.");
+    expect(newState.enemies[0]).toEqual({type: ENEMY, life: 50, health: 40, attack: 50});
+    expect(newState.player).toEqual({x: 2, y: 1, health: 0, attack: 10, exps: 0, level: 1, weapon: null, nextLevelExps: 50});
+    expect(newState.things[1][1]).toEqual({type: ENEMY, id: 0});
   });
 });
