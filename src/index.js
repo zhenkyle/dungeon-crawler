@@ -1,4 +1,3 @@
-/*
 const Provider = ReactRedux.Provider;
 const store = Redux.createStore(rootReducer, Redux.compose(
   Redux.applyMiddleware(ReduxThunk.default),
@@ -6,8 +5,7 @@ const store = Redux.createStore(rootReducer, Redux.compose(
   ));
 ReactDOM.render(
   <Provider store={store}>
-    <App/>
+    <ConnApp/>
   </Provider>,
   document.getElementById('root')
 );
-*/

@@ -28,7 +28,9 @@ const initialGameState = generateInitialGameState();
 function game(state = initialGameState, action) {
   switch (action.type) {
     case PLAYER_MOVE: {
-      return {...state, player: getNewPosition(state.player, action.direction)};
+      const pos = getNewPosition(state.player, action.direction);
+      const player = {...state.player, ...pos};
+      return {...state, player};
     }
     case DOWN_STAIRS: {
       const {map, things, enemies, player, dungeonFloor} = action;

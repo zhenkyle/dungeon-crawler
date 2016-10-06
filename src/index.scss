@@ -46,23 +46,24 @@ body {
 }
 
 .HolyGrail-content {
-  flex: 1;
-  margin-left: auto;
-  margin-right: auto;
+  flex-shrink: 0;
+  flex-basis: 1001px; /* all inner element are positioned, so width = 0, need this or specific width = 10001px */
+  margin-left: auto; /* need flex-grow: 0 to work */
+  margin-right: auto; /* need flex-grow: 0 to work */
   position: relative;
 
   table {
-    margin-left: auto;
-    margin-right: auto;
     border-collapse: collapse;
     position: absolute;
     top: 0; /* controlable by javascript */
     left: 0; /* controlable by javascript */
+    padding: 0;
 
     td {
       width: 10px;
       height: 10px;
       background-color: transparent;
+      padding: 0;
 
       &.player {
         background-color: $player-color;
