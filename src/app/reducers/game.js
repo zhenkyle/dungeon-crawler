@@ -45,7 +45,7 @@ function game(state = initialGameState, action) {
     case FIGHT: {
       const pos = getNewPosition(state.player, action.direction);
       const things = state.things.map(row => row.map(v => v));
-      let enemyInThings = things[pos.y][pos.x];
+      const enemyInThings = things[pos.y][pos.x];
       const enemies = [...state.enemies];
       const enemy = {...enemies[enemyInThings.id]};
       enemies[enemyInThings.id] = enemy;
@@ -64,8 +64,7 @@ function game(state = initialGameState, action) {
         }
         player.x = pos.x;
         player.y = pos.y;
-        enemyInThings = {type: TRANS};
-        things[pos.y][pos.x] = enemyInThings;
+        things[pos.y][pos.x] = {type: TRANS};
       }
 
       // enemy attack
@@ -76,6 +75,26 @@ function game(state = initialGameState, action) {
         }
       }
       return {...state, enemies, things, player, message};
+    }
+    case EAT: {
+      const pos = getNewPosition(state.player, action.direction);
+      const things = state.things.map(row => row.map(v => v));
+      const medicine = things[pos.y][pos.x];
+      const player = {...state.player, ...pos};
+      player.health += medicine.capacity;
+      things[pos.y][pos.x] = {type: TRANS};
+      return {...state, things, player};
+    }
+
+    case PICKUP: {
+      const pos = getNewPosition(state.player, action.direction);
+      const things = state.things.map(row => row.map(v => v));
+      const weapon = things[pos.y][pos.x];
+      const player = {...state.player, ...pos};
+      player.weapon = weapon;
+      player.attack = calPlayerAttack(player.level, player.weapon);
+      things[pos.y][pos.x] = {type: TRANS};
+      return {...state, things, player};
     }
     default:
       return state;
