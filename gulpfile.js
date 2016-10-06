@@ -1,6 +1,8 @@
 const gulp = require('gulp');
 const HubRegistry = require('gulp-hub');
 const browserSync = require('browser-sync');
+const gulpSubtree = require('gulp-subtree');
+const gulpClean = require('gulp-clean');
 
 const conf = require('./conf/gulp.conf');
 
@@ -38,3 +40,9 @@ function watch(done) {
   gulp.watch(conf.path.src('**/*.js'), gulp.series('inject'));
   done();
 }
+
+gulp.task('deploy', gulp.series('build', () => {
+  return gulp.src('dist')
+    .pipe(gulpSubtree())
+    .pipe(gulpClean());
+}));
