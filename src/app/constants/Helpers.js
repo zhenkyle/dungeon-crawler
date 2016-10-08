@@ -151,14 +151,14 @@ function getCurrentMapSize(map, mapWidth, mapHeight) {
 
 function generateMap(width, height) {
   // 1. fill map with soil
-  const map = getArray(width, height, () => ({type: SOIL}));
+  const map = getArray(width, height, () => SOIL_BLOCK);
 
   // 2. fill center of the map with a rectangle room
   let w = getRandomInt(5, 20);
   let h = getRandomInt(5, 20);
   let x = Math.floor((width - w) / 2);
   let y = Math.floor((height - h) / 2);
-  fillRect(map, x, y, w, h, {type: SPACE});
+  fillRect(map, x, y, w, h, SPACE_BLOCK);
 
   let complete = false;
   let fit = false;
@@ -209,8 +209,8 @@ function generateMap(width, height) {
     }
 
     // 7. draw the room on map
-    fillRect(map, x, y, 1, 1, {type: SPACE});
-    fillRect(map, x1, y1, x2 - x1 + 1, y2 - y1 + 1, {type: SPACE});
+    fillRect(map, x, y, 1, 1, SPACE_BLOCK);
+    fillRect(map, x1, y1, x2 - x1 + 1, y2 - y1 + 1, SPACE_BLOCK);
 
     // 8. go back to 3. until dungeon generate complete
     const {width: currentWidth, height: currentHeight} = getCurrentMapSize(map, width, height);
@@ -279,10 +279,10 @@ function generatePlayerPosition(onMap, onThings, mapWidth, mapHeight) {
 }
 
 function generateThingsAndEnemies(onMap, width, height, dungeonFloor) {
-  const things = getArray(width, height, () => ({type: TRANS}));
+  const things = getArray(width, height, () => TRANS_BLOCK);
   const enemies = [];
   // put a down stairs
-  putOneThing({type: STAIRS}, things, width, height, onMap, 1, 1);
+  putOneThing(STAIRS_BLOCK, things, width, height, onMap, 1, 1);
   // put a weapon for this floor
   putOneThing(getWeaponByFloor(dungeonFloor), things, width, height, onMap, 1, 1);
   // put 3 to 5 medicines

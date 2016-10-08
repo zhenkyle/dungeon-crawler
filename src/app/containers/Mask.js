@@ -8,38 +8,38 @@ function mapStateToPropsMask(state) {
   const {x, y} = player;
   let data;
   if (darkness === OFF) {
-    data = getArray(mapWidth, mapHeight, () => ({type: TRANS}));
+    data = getArray(mapWidth, mapHeight, () => TRANS_BLOCK);
   } else {
-    data = getArray(mapWidth, mapHeight, () => ({type: BLACK}));
-    const shap = [[{type: BLACK}, {type: BLACK}, {type: BLACK}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: BLACK}, {type: BLACK}, {type: BLACK}],
-                  [{type: BLACK}, {type: BLACK}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: BLACK}, {type: BLACK}],
-                  [{type: BLACK}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: BLACK}],
-                  [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
-                  [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
-                  [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
-                  [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
-                  [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
-                  [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
-                  [{type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}],
-                  [{type: BLACK}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: BLACK}],
-                  [{type: BLACK}, {type: BLACK}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: BLACK}, {type: BLACK}],
-                  [{type: BLACK}, {type: BLACK}, {type: BLACK}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: TRANS}, {type: BLACK}, {type: BLACK}, {type: BLACK}]
+    data = getArray(mapWidth, mapHeight, () => BLACK_BLOCK);
+    const shape = [[BLACK_BLOCK, BLACK_BLOCK, BLACK_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, BLACK_BLOCK, BLACK_BLOCK, BLACK_BLOCK],
+                  [BLACK_BLOCK, BLACK_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, BLACK_BLOCK, BLACK_BLOCK],
+                  [BLACK_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, BLACK_BLOCK],
+                  [TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK],
+                  [TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK],
+                  [TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK],
+                  [TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK],
+                  [TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK],
+                  [TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK],
+                  [TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK],
+                  [BLACK_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, BLACK_BLOCK],
+                  [BLACK_BLOCK, BLACK_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, BLACK_BLOCK, BLACK_BLOCK],
+                  [BLACK_BLOCK, BLACK_BLOCK, BLACK_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, TRANS_BLOCK, BLACK_BLOCK, BLACK_BLOCK, BLACK_BLOCK]
                   ];
-    const shapWidth = shap[0].length;
-    const shapHeight = shap.length;
+    const shapeWidth = shape[0].length;
+    const shapeHeight = shape.length;
     let maskX;
     let maskY;
-    for (let j = 0; j < shapHeight; j++) {
-      maskY = y + j - Math.floor(shapHeight / 2);
+    for (let j = 0; j < shapeHeight; j++) {
+      maskY = y + j - Math.floor(shapeHeight / 2);
       if (maskY < 0 || maskY > mapHeight - 1) {
         break;
       }
-      for (let i = 0; i < shapWidth; i++) {
-        maskX = x + i - Math.floor(shapWidth / 2);
+      for (let i = 0; i < shapeWidth; i++) {
+        maskX = x + i - Math.floor(shapeWidth / 2);
         if (maskX < 0 || maskX > mapWidth - 1) {
           break;
         }
-        data[maskY][maskX] = shap[j][i];
+        data[maskY][maskX] = shape[j][i];
       }
     }
   }

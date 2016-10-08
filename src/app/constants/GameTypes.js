@@ -38,3 +38,10 @@ const WEAPONS = [
 {type: WEAPON, name: "dragon crystal", attack: 80}
 ];
 
+// GLOBAL BLOCKS
+const TRANS_BLOCK = {type: TRANS};
+const BLACK_BLOCK = {type: BLACK};
+const SPACE_BLOCK = {type: SPACE};
+const SOIL_BLOCK = {type: SOIL};
+const PLAYER_BLOCK = {type: PLAYER};
+const STAIRS_BLOCK = {type: STAIRS};

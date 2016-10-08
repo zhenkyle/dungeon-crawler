@@ -66,7 +66,7 @@ function game(state = initialGameState, action) {
         }
         player.x = pos.x;
         player.y = pos.y;
-        things[pos.y][pos.x] = {type: TRANS};
+        things[pos.y][pos.x] = TRANS_BLOCK;
       }
 
       // enemy attack
@@ -84,7 +84,7 @@ function game(state = initialGameState, action) {
       const medicine = things[pos.y][pos.x];
       const player = {...state.player, ...pos};
       player.health += medicine.capacity;
-      things[pos.y][pos.x] = {type: TRANS};
+      things[pos.y][pos.x] = TRANS_BLOCK;
       return {...state, things, player};
     }
 
@@ -95,7 +95,7 @@ function game(state = initialGameState, action) {
       const player = {...state.player, ...pos};
       player.weapon = weapon;
       player.attack = calPlayerAttack(player.level, player.weapon);
-      things[pos.y][pos.x] = {type: TRANS};
+      things[pos.y][pos.x] = TRANS_BLOCK;
       return {...state, things, player};
     }
     default:

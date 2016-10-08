@@ -135,7 +135,6 @@ describe('Helpers', () => {
     let found = false;
     for (let i = 1; i < 4; i++) {
       for (let j = 1; j < 3; j++) {
-        console.log(things[j][i]);
         if (things[j][i] === enemy) {
           found = true;
         }
