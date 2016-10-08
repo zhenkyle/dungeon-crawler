@@ -1,55 +1,3 @@
-function BoardCell({data}) {
-  let className;
-  switch (data) {
-    case SOIL:
-      className = null;
-      break;
-    case SPACE:
-      className = "room";
-      break;
-    case ENEMY:
-      className = "enemy";
-      break;
-    case MEDICINE:
-      className = "medicine";
-      break;
-    case PLAYER:
-      className = "player";
-      break;
-    case WEAPON:
-      className = "weapon";
-      break;
-    case STAIRS:
-      className = "stairs";
-      break;
-    case BLACK:
-      className = "black";
-      break;
-    default:
-      className = null;
-  }
-  return (
-    <td className={className}>
-    </td>
-  );
-}
-BoardCell.propTypes = {
-  data: React.PropTypes.number.isRequired
-};
-
-function BoardRow({data}) {
-  return (
-    <tr>
-    {data.map((v, i) =>
-      <BoardCell key={i} data={v.type}/>
-    )}
-    </tr>
-  );
-}
-BoardRow.propTypes = {
-  data: React.PropTypes.array.isRequired
-};
-
 function Board({data, top, left}) {
   return (
     <table style={{top: `${top}px`, left: `${left}px`}}>
@@ -62,7 +10,9 @@ function Board({data, top, left}) {
   );
 }
 Board.propTypes = {
-  data: React.PropTypes.array.isRequired,
+  data: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.shape({
+    type: React.PropTypes.number
+  }))).isRequired,
   top: React.PropTypes.number.isRequired,
   left: React.PropTypes.number.isRequired
 };
