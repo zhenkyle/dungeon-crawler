@@ -1,6 +1,6 @@
 function generateInitialGameState() {
   const map = generateMap(MAP_WIDTH, MAP_HEIGHT);
-  const {things, enemies} = generateThingsAndEnemies(map, MAP_WIDTH, MAP_HEIGHT, 4);
+  const {things, enemies} = generateThingsAndEnemies(map, MAP_WIDTH, MAP_HEIGHT, 1);
   let player = generatePlayerPosition(map, things, MAP_WIDTH, MAP_HEIGHT);
 
   const health = 100;
@@ -52,7 +52,7 @@ function game(state = initialGameState, action) {
       const enemy = {...enemies[enemyInThings.id]};
       enemies[enemyInThings.id] = enemy;
       const player = {...state.player};
-      let message = state.message;
+      const message = state.message;
 
       // player attack enemy
       enemy.health -= player.attack;
@@ -72,9 +72,6 @@ function game(state = initialGameState, action) {
       // enemy attack
       if (enemy.health > 0) {
         player.health -= enemy.attack;
-        if (player.health <= 0) {
-          message = "You've been killed. Better luck next time.";
-        }
       }
       return {...state, enemies, things, player, message};
     }

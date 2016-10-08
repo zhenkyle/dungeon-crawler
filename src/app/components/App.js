@@ -24,6 +24,7 @@ class App extends React.Component {
         break;
     }
   }
+
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyDown);
   }
@@ -35,6 +36,9 @@ class App extends React.Component {
   render() {
     return (
       <div className="HolyGrail">
+        <div id="note">
+          {message}
+        </div>
         <Header/>
         <div className="HolyGrail-body">
           <main className="HolyGrail-content">
@@ -53,5 +57,8 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  onDocumentKeyDown: React.PropTypes.func.isRequired
+  onDocumentKeyDown: React.PropTypes.func.isRequired,
+  playerAlive: React.PropTypes.bool.isRequired,
+  bossAlive: React.PropTypes.bool.isRequired,
+  message: React.PropTypes.string.isRequired
 };
