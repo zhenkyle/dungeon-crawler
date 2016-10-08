@@ -1,6 +1,6 @@
-function Board({data, top, left}) {
+function Board({data}) {
   return (
-    <table style={{top: `${top}px`, left: `${left}px`}}>
+    <table>
       <tbody>
       {data.map((v, i) =>
         <BoardRow key={i} data={v}/>
@@ -9,10 +9,9 @@ function Board({data, top, left}) {
     </table>
   );
 }
+
 Board.propTypes = {
   data: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.shape({
     type: React.PropTypes.number
-  }))).isRequired,
-  top: React.PropTypes.number.isRequired,
-  left: React.PropTypes.number.isRequired
+  }))).isRequired
 };

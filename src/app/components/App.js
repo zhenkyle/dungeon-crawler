@@ -38,10 +38,12 @@ class App extends React.Component {
         <Header/>
         <div className="HolyGrail-body">
           <main className="HolyGrail-content">
-            <Background/>
-            <Things/>
-            <Ui/>
-            <Mask/>
+            <ConnPos>
+              <Background/>
+              <Things/>
+              <Ui/>
+              <Mask/>
+            </ConnPos>
           </main>
         </div>
         <Footer/>

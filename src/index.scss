@@ -52,41 +52,51 @@ body {
   margin-right: auto; /* need flex-grow: 0 to work */
   position: relative;
 
-  table {
-    border-collapse: collapse;
+  div {
     position: absolute;
     top: 0; /* controlable by javascript */
     left: 0; /* controlable by javascript */
-    padding: 0;
+    border: 1px dashed red;
 
-    td {
-      width: 10px;
-      height: 10px;
-      background-color: transparent;
+    table {
+      border-collapse: collapse;
       padding: 0;
 
-      &.player {
-        background-color: $player-color;
+      &:nth-child(1n+2) {
+        position: absolute;
+        top: 0;
+        left: 0;
       }
 
-      &.enemy {
-        background-color: $enemy-color;
-      }
+      td {
+        width: 10px;
+        height: 10px;
+        background-color: transparent;
+        padding: 0;
 
-      &.medicine {
-        background-color: $medicine-color;
-      }
+        &.player {
+          background-color: $player-color;
+        }
 
-      &.room {
-        background-color: $room-color;
-      }
+        &.enemy {
+          background-color: $enemy-color;
+        }
 
-      &.stairs {
-        background-color: $stairs-color;
-      }
+        &.medicine {
+          background-color: $medicine-color;
+        }
 
-      &.black {
-        background-color: $bg-color;
+        &.room {
+          background-color: $room-color;
+        }
+
+        &.stairs {
+          background-color: $stairs-color;
+        }
+
+        &.black {
+          background-color: $bg-color;
+        }
       }
     }
   }
