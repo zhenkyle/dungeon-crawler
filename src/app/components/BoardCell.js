@@ -14,6 +14,9 @@ class BoardCell extends React.Component {
       case ENEMY:
         className = "enemy";
         break;
+      case BOSS:
+        className = "enemy";
+        break;
       case MEDICINE:
         className = "medicine";
         break;

@@ -1,6 +1,6 @@
 function generateInitialGameState() {
   const map = generateMap(MAP_WIDTH, MAP_HEIGHT);
-  const {things, enemies} = generateThingsAndEnemies(map, MAP_WIDTH, MAP_HEIGHT, 1);
+  const {things, enemies} = generateThingsAndEnemies(map, MAP_WIDTH, MAP_HEIGHT, 4);
   let player = generatePlayerPosition(map, things, MAP_WIDTH, MAP_HEIGHT);
 
   const health = 100;
