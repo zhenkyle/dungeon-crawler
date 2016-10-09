@@ -95,6 +95,9 @@ function game(state = initialGameState, action) {
       things[pos.y][pos.x] = TRANS_BLOCK;
       return {...state, things, player};
     }
+    case SET_MESSAGE: {
+      return {...state, message: action.message};
+    }
     default:
       return state;
   }

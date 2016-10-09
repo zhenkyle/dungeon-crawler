@@ -4,3 +4,4 @@ const DOWN_STAIRS = 'DOWN_STAIRS';
 const FIGHT = 'FIGHT';
 const EAT = 'EAT';
 const PICKUP = 'PICKUP';
+const SET_MESSAGE = 'SET_MESSAGE';

@@ -33,12 +33,30 @@ class App extends React.Component {
     document.removeEventListener('keydown', this.handleKeyDown);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const {playerAlive, bossAlive} = nextProps;
+
+    let message = "";
+    if (!playerAlive) {
+      message = "You've been killed, better luck next time.";
+    } else if (!bossAlive) {
+      message = "Congratulations, you win! Now begin new game.";
+    }
+
+    if (!playerAlive || !bossAlive) {
+      this.props.onSetMessage(message);
+      this.props.onStartNewGame();
+    }
+  }
+
+  flashMessage() {
+    return this.props.message === "" ? <span/> : <div id="note">{this.props.message}</div>;
+  }
+
   render() {
     return (
       <div className="HolyGrail">
-        <div id="note">
-          {message}
-        </div>
+        {this.flashMessage()}
         <Header/>
         <div className="HolyGrail-body">
           <main className="HolyGrail-content">
@@ -58,6 +76,8 @@ class App extends React.Component {
 
 App.propTypes = {
   onDocumentKeyDown: React.PropTypes.func.isRequired,
+  onStartNewGame: React.PropTypes.func.isRequired,
+  onSetMessage: React.PropTypes.func.isRequired,
   playerAlive: React.PropTypes.bool.isRequired,
   bossAlive: React.PropTypes.bool.isRequired,
   message: React.PropTypes.string.isRequired

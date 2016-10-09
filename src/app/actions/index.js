@@ -59,3 +59,31 @@ function handleMove(direction) {
     }
   };
 }
+
+function setMessage(message) {
+  return {type: SET_MESSAGE, message};
+}
+
+function startNewGame() {
+  return (dispatch, getState) => {
+    const map = generateMap(MAP_WIDTH, MAP_HEIGHT);
+    const dungeonFloor = 1;
+    const {things, enemies} = generateThingsAndEnemies(map, MAP_WIDTH, MAP_HEIGHT, dungeonFloor);
+
+    let player = generatePlayerPosition(map, things, MAP_WIDTH, MAP_HEIGHT);
+
+    const health = 100;
+    const level = 1;
+    const exps = 0;
+    const nextLevelExps = 50;
+    const weapon = null;
+    const attack = calPlayerAttack(level, weapon);
+
+    player = {...player, health, level, exps, nextLevelExps, weapon, attack};
+
+    dispatch(downStairs(map, things, enemies, player, dungeonFloor));
+    setTimeout(() => {
+      dispatch(setMessage(""));
+    }, 5000);
+  };
+}
